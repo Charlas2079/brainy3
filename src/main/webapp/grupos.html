@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="app"> 
+<head>
+<meta charset="ISO-8859-1">
+<title>Grupos CRUD</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="GrupoCRUDCtrl">
+			<table>
+				<tr>
+					<td width="100">ID:</td>
+					<td><input type="text" id="idGrupo" ng-model="grupo.idGrupo" /></td>
+				</tr>
+				<tr>
+					<td width="100">Descripcion:</td>
+					<td><input type="text" id="descripcion" ng-model="grupo.descripcion" /></td>
+				</tr>				
+			</table>
+			<br /> <br /> 
+			<a ng-click="getGrupo(grupo.idGrupo)">Get Grupo</a> 
+			<a ng-click="updateGrupo(grupo.idGrupo,grupo.descripcion)">Update Grupo</a>  
+			<a ng-click="addGrupo(grupo.descripcion)">Add Grupo</a>  
+			<a ng-click="deleteGrupo(grupo.idGrupo)">Delete Grupo</a>  
+
+		<br /> <br />
+		<p style="color: green">{{message}}</p>
+		<p style="color: red">{{errorMessage}}</p>
+
+		<br />
+		<br /> 
+		<a ng-click="getAllGrupos()">Todos los grupos existentes</a><br /> 
+		<br /> <br />
+		<div ng-repeat="grp in grupos">
+			 {{grp.descripcion}}
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Configurar Encuesta</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="ConfigureCtrl">
+		<a href="https://script.google.com/macros/s/AKfycbwUZBPL_VDtFnRTw2MRPlntN5ivWQa3bAhSVGItTpNvVEIeM-c/exec" target="_blank">Publicar Encuesta</a> <a href="">Cerrar Encuesta </a>
+		<a>Ver Resultados</a> <br />
+	
+	<p>Escoja las preguntas que harán parte de la encuesta.</p>
+	<input type="hidden" id="idEncuesta" ng-model="pollSeleccionado" />
+	<div ng-repeat="pregunta in preguntas"  ng-init="parentIndex = $index">
+		<input type="checkbox" id="{{ $index }}" ng-model="pregunta.selidPregunta" value="{{ pregunta.descripcion}}" /> 
+		<span class="serial-number">{{ pregunta.descripcion}}</span> 
+		
+			<section ng-show="pregunta.selidPregunta">
+				<a ng-click="addGrupo(parentIndex,grupos)">Add Group</a>
+				<div ng-repeat="grp in gruposFront">
+					<div ng-show ="{{grp.indice == parentIndex}}">
+							<select ng-model="selectedGrupo[pregunta.idPregunta]" ng-change="update(pregunta.idPregunta,selectedGrupo)">
+								<option ng-repeat="x in grp.groups" value="{{x.idGrupo}}">{{x.descripcion}}</option>
+							</select>				
+						<a ng-click="removeGrupo(grp,parentIndex)">X</a>
+					</div>
+					
+				</div>
+			</section>
+			</br>
+			<section ng-show="pregunta.selidPregunta">
+				<a ng-click="addCriterio(parentIndex,criterios)">Add Criterio</a>
+				<div ng-repeat="crt in criteriosFront">
+					<div ng-show ="{{crt.indice == parentIndex}}">
+						<select ng-model="selectedCriterio[pregunta.idPregunta]" >
+							<option ng-repeat="x in crt.proofs" value="{{x.idCriterio}}">{{x.nombreCriterio}}</option>						  
+						</select>	
+						<input type="text" ng-model="crt.peso[pregunta.idPregunta]" placeholder="Peso" />						
+						<input type="text" ng-model="crt.pesoEncuesta[pregunta.idPregunta]" placeholder="Peso Encuesta" ng-blur="updateCriterio(pregunta.idPregunta,selectedCriterio,crt.peso,crt.pesoEncuesta)" />						
+					<a ng-click="removeCriterio(crt,parentIndex)">X</a>
+					</div>
+				</div>
+			</section>
+			<!-- Esta parte falta. -->
+			<section ng-show="pregunta.selidPregunta">	
+				<p>Escoja las respuestas de la pregunta para esta encuesta.</p>			
+				<select ng-model="selectedGrupoAnswer[pregunta.idPregunta]" ng-change="updateAnswers(pregunta.idPregunta,selectedGrupoAnswer)">
+					<option ng-repeat="x in grupoRespuestas" value="{{x.grupoRespuesta}}">{{x.grupoRespuesta}}</option>
+				</select>		
+			</section>
+	</div>
+	<section>
+		<a href="preguntas.html">Nueva Pregunta</a> <a>Cargar Preguntas</a>
+	</section>
+
+	<p>Escoja las personas a quienes se les aplicará la encuesta.</p>
+	<input type="search" ng-model="q" placeholder="filtro nombre personas " aria-label="filtro personas" />
+	<div ng-repeat="usr in users | filter:q as results track by usr.nombre">
+		<input type="checkbox" id="{{ $index }}" ng-model="usr.selidPersona" /> 
+		<span class="serial-number">{{ usr.nombre }} </span> 
+		<span class="serial-number">{{ usr.email }} </span>	
+	</div>
+	<section>
+		<a href="users.html">Nueva Persona</a> <a>Cargar Personas</a>
+	</section>
+	
+	<section>
+		<a ng-click="savePoll()" >Guardar Configuracion de Encuesta</a>
+		<!-- Preguntas results:<br>
+  {{albumNameArray}} <br>
+  Personas results:<br>
+  {{personasNameArray}}<br>
+  Grupo results:<br>
+  {{gruposNameArray}}<br>
+  Crtierio results:<br>
+  {{criteriosNameArray}}
+  {{answersNameArray}} -->
+	</section>
+	</div>
+
+
+
+</body>
+</html>

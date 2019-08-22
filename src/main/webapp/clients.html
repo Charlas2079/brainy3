@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Client CRUD</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+<script src="view/angular-ui-router.min.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="ClientCRUDCtrl">
+		<a ng-click="ShowHide()">Nuevo Cliente</a> <a href="polls.html" ng-click="checkoptions(clientes)" >Crear Encuesta</a> 
+		<br />
+		<div ng-show="IsVisible">
+			<table>
+				<tr>
+					<td width="100">ID:</td>
+					<td><input type="text" id="idCliente"
+						ng-model="client.idCliente" /></td>
+				</tr>
+				<tr>
+					<td width="100">Nombre o Razon Social:</td>
+					<td><input type="text" id="nombre" ng-model="client.nombre" /></td>
+				</tr>
+				<tr>
+					<td width="100">Tipo Cliente:</td>
+					<td><input type="text" id="tipoCliente"
+						ng-model="client.tipoCliente" /></td>
+				</tr>
+			</table>
+			<br /> <br /> <a ng-click="getClient(client.idCliente)">Get
+				Client</a> <a
+				ng-click="updateClient(client.idClient,client.nombre,client.tipoCliente)">Update
+				Client</a> <a ng-click="addClient(client.nombre,client.tipoCliente)">Add
+				Client</a> <a ng-click="deleteClient(client.idCliente)">Delete
+				Clients</a> <br /> <br />
+			<p style="color: green">{{message}}</p>
+			<p style="color: red">{{errorMessage}}</p>
+
+			<br /> <br />
+		</div>
+		<div ng-repeat="cl in clientes">
+					<input type="radio" name="clnt" ng-model="$parent.selCliente" value="{{ cl.idCliente }}">{{ cl.nombre }}</>	
+						
+				</div>
+				<span style="color:Red">{{msg}}</span>
+		<br /> <br /> <!-- { data: clients } -->
+		
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Criterios CRUD</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="CriterioCRUDCtrl">
+			<table>
+				<tr>
+					<td width="100">ID Criterio:</td>
+					<td><input type="text" id="idCriterio" ng-model="criterio.idCriterio" /></td>
+				</tr>
+				<tr>
+					<td width="100">Nombre Criterio:</td>
+					<td><input type="text" id="nombreCriterio" ng-model="criterio.nombreCriterio" /></td>
+				</tr>				
+			</table>
+			<br /> <br /> 
+			<a ng-click="getCriterio(criterio.idCriterio)">Get Criterio</a> 
+			<a ng-click="updateCriterio(criterio.idCriterio,criterio.nombreCriterio)">Update Criterio</a>   
+			<a ng-click="addCriterio(criterio.nombreCriterio)">Add Criterio</a>  
+			<a ng-click="deleteCriterio(criterio.idCriterio)">Delete Criterio</a>  
+
+		<br /> <br />
+		<p style="color: green">{{message}}</p>
+		<p style="color: red">{{errorMessage}}</p>
+
+		<br />
+		<br /> 
+		<a ng-click="getAllCriterios()">Todos los criterios existentes</a><br /> 
+		<br /> <br />
+		<div ng-repeat="crt in criterios">
+			{{crt.nombreCriterio}} 
+		</div>
+	</div>
+</body>
+</html>

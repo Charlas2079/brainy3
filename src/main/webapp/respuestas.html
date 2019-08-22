@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Respuestas</title>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+	<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="AnswerCRUDCtrl">
+			<table>				
+				<tr>
+					<td width="100" >Tipo Respuesta:</td>
+					<td><select name="tipoPregunta" ng-model="respuesta.tipoPregunta">
+						<option ng-repeat="x in tipoPreguntas" value="{{x.idTipoPregunta}}">{{x.descripcion}}</option>
+					</select></td>
+				</tr>				
+			</table>
+			
+			<br /> <br />
+			
+			<!-- Tengo que ver como cambiar los ids, para no dejarlos quemados. -->
+			<section ng-show="respuesta.tipoPregunta == '1' || respuesta.tipoPregunta == '2'  ||  respuesta.tipoPregunta == '6'" > 	
+				<a ng-click="addRespuesta()">Add Answer</a>
+				<input type="text" ng-model="respuesta.grupoRespuesta" placeholder="Grupo Respuesta" />
+				<div ng-repeat="respuesta in respuestas">
+					<span class="serial-number">{{ $index + 1 }}.</span>
+					<input type="text" ng-model="respuesta.respuesta" placeholder="Respuesta" />
+					<input type="text" ng-model="respuesta.valor" placeholder="Valor" />
+					<a ng-click="removeRespuesta(respuesta)">X</a>
+				</div>															
+			</section>
+			
+			<section ng-show="respuesta.tipoPregunta == '8' || respuesta.tipoPregunta == '13'" >
+				<input type="text" ng-model="respuesta.grupoRespuesta" placeholder="Grupo Respuesta" />
+				<div >					
+					<input type="text" ng-model="respuesta.respuestaUrl" placeholder="url" />			
+				</div>															
+			</section>
+			
+			<section ng-show="respuesta.tipoPregunta == '4'" > 
+					
+				<a ng-click="addRespuesta()">Add Rows</a>
+				<input type="text" ng-model="respuesta.grupoRespuesta" placeholder="Grupo Respuesta" />
+				<div ng-repeat="respuesta in respuestas">
+					<span class="serial-number">{{ $index + 1 }}.</span>
+					<input type="text" ng-model="respuesta.respuestaFilas" placeholder="Filas" />					
+					<a ng-click="removeRespuesta(respuesta)">X</a>
+				</div>															
+			</section>
+			
+			<section ng-show="respuesta.tipoPregunta == '4'" > 	
+				<a ng-click="addColumns()">Add Column</a>
+				<div ng-repeat="col in columnas">
+					<span class="serial-number">{{ $index + 1 }}.</span>
+					<input type="text" ng-model="col.respuestaColumnas" placeholder="Columnas" />					
+					<a ng-click="removeColumns(col)">X</a>
+				</div>															
+			</section>
+			 
+			<section ng-show="respuesta.tipoPregunta == '5'" >	
+				<input type="text" ng-model="respuesta.grupoRespuesta" placeholder="Grupo Respuesta" />
+				<div >
+					<input type="text" ng-model="respuesta.min" placeholder="Minimo" />
+					<input type="text" ng-model="respuesta.max" placeholder="Maximo" />					
+					
+				</div>															
+			</section> 
+			
+			<section ng-show="respuesta.tipoPregunta == '7'" > 
+				<input type="text" ng-model="respuesta.grupoRespuesta" placeholder="Grupo Respuesta" />
+				<div>
+					<input type="text" ng-model="respuesta.hours" placeholder="Horas" />
+					<input type="text" ng-model="respuesta.min" placeholder="Minutos" />
+					<input type="text" ng-model="respuesta.seg" placeholder="Segundos" />					
+					
+				</div>															
+			</section> 
+			
+			<!-- <a ng-click="getUser(user.idPersona)">Get User</a> 
+			<a ng-click="updateUser(user.idPersona,user.nombre,user.numeroDocumento)">Update User</a>			 
+			<a ng-click="deleteUser(user.idPersona)">Delete User</a> -->
+			<a ng-click="addAnswer(respuesta.respuesta, respuesta.valor, respuesta.grupoRespuesta,respuesta.tipoPregunta);">Add Question</a>
+						<!--  -->
+		<br /> <br />
+		<p style="color: green">{{message}}</p>
+		<p style="color: red">{{errorMessage}}</p>
+
+		<br />
+		<br /> 
+		<a ng-click="getAllAnswers()">Todas las Respuestas</a><br /> 
+		<a href="configure.html">Volver a Configurar</a><br /> 
+		<br /> <br />
+		<div ng-repeat="respuesta in respuestas">
+			{{respuesta.grupoRespuesta}} {{respuesta.respuesta}} {{respuesta.valor}}
+		</div>		
+	</div>
+
+</body>
+</html>

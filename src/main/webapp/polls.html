@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Polls</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+	<script src="view/angular-ui-router.min.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+
+</head>
+<body>
+	<div ng-controller="PollCRUDCtrl">
+		<a ng-click="ShowHide()">Nueva Encuesta </a> <a href="configure.html" ng-click="checkoptions(encuestas)" >Configurar Encuesta</a> <br />
+			
+			<div ng-show="IsVisible">
+			<table>
+				<tr>
+					<td width="100">ID:</td>
+					<td><input type="text" id="idEncuesta"
+						ng-model="poll.idEncuesta" />
+						<input type="hidden"  id="idCliente"
+						ng-model="clienteSeleccionado" /></td>
+				</tr>
+				
+				<tr>
+					<td width="100">Nombre Encuesta:</td>
+					<td><input type="text" id="nombreEncuesta" ng-model="poll.nombreEncuesta" /></td>
+				</tr>
+				<tr>
+					<td width="100">Fecha Encuesta:</td>
+					<td><input type="date" id="fecha_encuesta"
+						ng-model="poll.fecha_encuesta" placeholder="yyyy-MM-dd" min="2013-01-01" max="2099-12-31" required/></td>
+				</tr>
+				<tr>
+					<td width="100">Fecha Cierre:</td>
+					<td><input type="date" id="fecha_cierre"
+						ng-model="poll.fecha_cierre" placeholder="yyyy-MM-dd" min="2013-01-01" max="2099-12-31" required /></td>
+				</tr>
+				<tr>
+					<td width="100">Numero Personas</td>
+					<td><input type="number" id="numeroPersonas"
+						ng-model="poll.numeroPersonas" min="0" max="99" required/></td>
+				</tr>
+				<tr>
+					<td width="100">Numero Preguntas</td>
+					<td><input type="number" id="numeroPreguntas"
+						ng-model="poll.numeroPreguntas" min="0" max="99" required/></td>
+				</tr>
+			</table>
+			<br /> <br /> <a ng-click="getPoll(poll.idEncuesta)">Get Poll</a>
+			<!-- <a ng-click="updateClient(client.idClient,client.nombre,client.tipoCliente)">Update Client</a> -->
+			<a
+				ng-click="addPoll(poll_numeroPersonas, poll.fecha_encuesta, poll.numeroPreguntas, clienteSeleccionado, poll.nombreEncuesta, poll.fecha_cierre)">Add
+				Poll</a>
+			<!-- <a ng-click="deleteClient(client.idCliente)">Delete Clients</a> -->
+
+			<br /> <br />
+			<p style="color: green">{{message}}</p>
+			<p style="color: red">{{errorMessage}}</p>
+			
+			
+			
+			<br /> <br />
+		</div>
+		<div ng-repeat="enc in encuestas">
+					<input type="radio" name="encuesta" ng-model="$parent.selEncuesta" value="{{ enc.idEncuesta }}">{{ enc.nombre_encuesta }}</>	
+						
+				</div>
+				<span style="color:Red">{{msg}}</span>
+	</div>
+
+
+</body>
+</html>

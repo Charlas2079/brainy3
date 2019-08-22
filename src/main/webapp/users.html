@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="ISO-8859-1">
+<title>Personas</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-touch.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-animate.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular-aria.js"></script>
+<script src="view/app.js"></script>
+<style>
+a {
+	cursor: pointer;
+	background-color: lightblue;
+}
+</style>
+</head>
+<body>
+	<div ng-controller="UserCRUDCtrl">
+			<table>
+				<tr>
+					<td width="100">Numero Documento :</td>
+					<td><input type="text" id="id" ng-model="user.idPersona" /></td>
+				</tr>
+				<tr>
+					<td width="100">Nombre:</td>
+					<td><input type="text" id="nombre" ng-model="user.nombre" /></td>
+				</tr>
+				<tr>
+					<td width="100">Cargo:</td>
+					<td><input type="text" id="cargo" ng-model="user.cargo" /></td>
+				</tr>
+				<tr>
+					<td width="100">Edad:</td>
+					<td><input type="text" id="edad" ng-model="user.edad" /></td>
+				</tr>
+				<tr>
+					<td width="100">Sector:</td>
+					<td><input type="text" id="sector" ng-model="user.sector" /></td>
+				</tr>
+				<tr>
+					<td width="100">Años de Experiencia:</td>
+					<td><input type="text" id="experiencia" ng-model="user.experiencia" /></td>
+				</tr>
+				<tr>
+					<td width="100">Area:</td>
+					<td><input type="text" id="area" ng-model="user.area" /></td>
+				</tr>
+				<tr>
+					<td width="100">Email:</td>
+					<td><input type="email" id="email" ng-model="user.email" /></td>
+				</tr>
+			</table>
+			<br /> <br /> 
+			<a ng-click="getUser(user.idPersona)">Get User</a> 
+			<a ng-click="updateUser(user.idPersona,user.nombre,user.cargo,user.edad,user.sector,user.experiencia,user.area,user.email)">Update User</a> 
+			<a ng-click="addUser(user.idPersona,user.nombre,user.cargo,user.edad,user.sector,user.experiencia,user.area,user.email)">Add User</a> 
+			<a ng-click="deleteUser(user.idPersona)">Delete User</a>
+
+		<br /> <br />
+		<p style="color: green">{{message}}</p>
+		<p style="color: red">{{errorMessage}}</p>
+
+		<br />
+		<br /> 
+		<a ng-click="getAllUsers()">Todas las Personas</a><br /> 
+		<br /> <br />
+		<div ng-repeat="usr in users">
+			{{usr.idPersona}} {{usr.nombre}} {{usr.email}} 
+		</div>
+	</div>
+</body>
+</html>
